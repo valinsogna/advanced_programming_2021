@@ -20,14 +20,14 @@ struct Foo {
   ~Foo();  // destructor: function invoked when your object is out of scope
   //+ copy constructor and ?
 };
-
+//Outside fully qualified name without return type:
 Foo::Foo(const int i, const double d, const std::string& s)
-    : _i{i},
-      _d{d},
+    : _i{i},//initilization space: we are calling the constractur of each elem
+      _d{d},//faster to initialize members here then in the body!
       _s{s}
 // _i, _d, _s must be initialized in the same order they have been declared
-
-{
+{//here those memebers at line 25-27 are been constructed!
+//_i = i;
   std::cout << "custom ctor\n";
   // if you want/need you can use _i, _d, _s and change their value
   // with the usual notation +,-,=,*, call a function..
