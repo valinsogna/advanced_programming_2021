@@ -3,11 +3,13 @@
 //OSS: trick for 1 starting enum
 enum month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
 
-using namespace std;
-
+//using namespace std;
+using std::endl;
+using std::cout;
 int main() {
-  cout << nov << '\n';
-  //If I decomment I get an error since dec is also present in std!
+
+  cout << month::apr << endl;
+  //If I decomment I get an error since dec can be also present in std: which scope?!
   //cout << dec << endl;
 
   //But if I change it into scope enum:
@@ -21,3 +23,4 @@ int main() {
   cout << static_cast<int>(month::dec) << endl;
   return 0;
 }
+
