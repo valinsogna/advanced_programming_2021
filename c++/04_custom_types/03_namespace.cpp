@@ -1,5 +1,6 @@
 #include <iostream>
-
+//namespace it's a named scope
+//scope can be nested
 namespace choose_a_name {
 
   int variable;
@@ -15,7 +16,7 @@ namespace choose_a_name {
 
 int main() {
   // variable = 42; // error
-  choose_a_name::variable = 42;
+  choose_a_name::variable = 42; //scope resolution operator ::
   // hello1(); // error
   choose_a_name::nested::hello1();
   choose_a_name::nested::hello2();
@@ -27,7 +28,8 @@ void choose_a_name::nested::hello1() {
   std::cout << "hello1 from nested\n"
             << "variable is " << choose_a_name::variable << std::endl;
 }
-
+//I reopen the namespace choose_a_name
+//I can incrementaly add symbols to a namespace 
 namespace choose_a_name {
   namespace nested {
     void hello2() {
