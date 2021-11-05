@@ -10,11 +10,15 @@ void print_ma(int m[][5], int dim1);  // ugly and not flexible
 
 void print_ma(int* p, int row, int col);  // the "best" solution
 
+//Elements in matrix are stored continuosly as array row major forma.
+//In fortrand is column major.
+//How many columns each rows have (the size) must be known at compile time
 int main() {
+  //C and C++ static matrix, row major:
   int ma[6][5];  // matrix: 6 rows, 5 columns each
-
-  for (int i = 0; i < 6; ++i)
-    for (int j = 0; j < 5; ++j)
+  //In RAM it's not stored as a matrix but as a long array!
+  for (int i = 0; i < 6; ++i) //through rows
+    for (int j = 0; j < 5; ++j) //through columns
       ma[i][j] = 10 * i + j;
 
   for (int i = 0; i < 6; ++i) {
@@ -22,6 +26,8 @@ int main() {
       std::cout << std::setw(3) << ma[i][j];
     std::cout << std::endl;
   }
+
+  //Transpose: 2 inner for better to read in which sense and write in what?
 
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)
@@ -36,6 +42,7 @@ int main() {
 
   // print_ma(ma, 6, 5);  // error
   print_ma(p, 6, 5);
+  //defining a static matrix is not so flexible
 
   auto d_ma = new int[6 * 5]{};
 

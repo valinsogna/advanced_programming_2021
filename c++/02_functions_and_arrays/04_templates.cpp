@@ -1,7 +1,7 @@
 #include <iostream>
 
 template <typename T>
-T dwim(const T a, const T b);
+T dwim(const T a, const T b); //Può dedurre T dagli argomenti (no dal return TYPE)
 
 int main() {
   int a{5}, b{7};

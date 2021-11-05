@@ -1,7 +1,8 @@
 #include <chrono>
 #include <iostream>
+//If your code inside your function it is not known at compile time,
 constexpr std::size_t fib(const unsigned int x) {
-  return (x < 2) ? x : fib(x - 1) + fib(x - 2);
+  return (x < 2) ? x : fib(x - 1) + fib(x - 2); //recursion + C++14 syntax
   // if (x < 2) return x;
   // else {
   //   return fib(x-1) + fib(x-2);
@@ -13,8 +14,9 @@ std::size_t fib_rt(const std::size_t x) {
     return x;
   return fib(x - 1) + fib(x - 2);
 }
-
-template <unsigned i>
+//With template we can force this to evaluate at compiled time
+//Template must be known at compile time
+template <unsigned i> //NOT everythig can be used as <> in a template, only: unknown types or integer types
 constexpr std::size_t fib_t() {
   return fib_t<i - 1>() + fib_t<i - 2>();
 }
@@ -29,13 +31,16 @@ constexpr std::size_t fib_t<1>() {
   return 1;
 }
 
-#if __cplusplus > 201700L
+//MACRO: preprocessor instr
+//Long int
+#if __cplusplus > 201700L 
 
 template <unsigned i>
 constexpr std::size_t fib_t17() {
-  if constexpr (i < 2)
+  if constexpr (i < 2) //C++17 syntax + if statement is evaluated at run time
     return i;
-  else {  // very important
+  else {  //<- very important, otherwise and infinite recursion 
+  //(instead for normal if condition you don't need to specify else if you are exiting the function)
     return fib_t17<i - 1>() + fib_t17<i - 2>();
   }
 }
@@ -44,7 +49,7 @@ constexpr std::size_t fib_t17() {
 constexpr unsigned int num{24};
 
 int main() {
-  {
+  {//scope: so t0,t1,elapsed are confined in the scope
     auto t0 = std::chrono::high_resolution_clock::now();
     constexpr auto x = fib(num);
     auto t1 = std::chrono::high_resolution_clock::now();
