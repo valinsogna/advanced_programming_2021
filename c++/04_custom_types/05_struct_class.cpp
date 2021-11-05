@@ -1,6 +1,15 @@
 #include <array>
 #include <iostream>
 #include <vector>
+//Struct/Class define new types!
+//They can have as memebers both functions and variables
+//Plus, functions are called methods sometimes.
+//What's the difference?
+//It is in the default visibility of the symbols!
+//Struct make them all public, instead class private!
+//There are 3 level of visibility: public, private, protected
+//Private visbility is for let the onject remain in a valid state
+//Interface of a class: set of public symbols, varibales, functions
 
 struct Point_s {
   double x;
@@ -30,7 +39,7 @@ int main() {
   ps.print();
 
   Point_c pc;
-  // pc.x =7.6; // error
+  // pc.x =7.6; // error: only public memebers are visible from outside
   pc.print();  // I can access private data through public functions
 
   Point_s* p = &ps;
