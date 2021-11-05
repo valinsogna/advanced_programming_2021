@@ -5,13 +5,17 @@ struct Foo {
   int _i;
   double _d;
   std::string _s;
-
+//Constractors are functions and do not have a return type 
+//and their name is the same of the class
+//They can be defined inside/outside the class
+//Inside they must be inlined!
   Foo(const int i, const double d,
       const std::string& s);  // custom constructor
 
   Foo();  // default constructor
 
-  ~Foo();  // destructor
+  ~Foo();  // destructor: function invoked when your object is out of scope
+  //+ copy constructor and ?
 };
 
 Foo::Foo(const int i, const double d, const std::string& s)
