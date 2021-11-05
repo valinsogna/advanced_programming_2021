@@ -1,6 +1,9 @@
 #include <array>
 #include <iostream>
 #include <vector>
+//Operators are functions
+// '<<' PUT O OPERATOR is a binary operator = 2 args
+// but we can invoke operator multiple times
 
 struct Point_s {
   double x;

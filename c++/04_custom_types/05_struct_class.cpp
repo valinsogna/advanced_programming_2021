@@ -10,6 +10,7 @@
 //There are 3 level of visibility: public, private, protected
 //Private visbility is for let the onject remain in a valid state
 //Interface of a class: set of public symbols, varibales, functions
+//Functions can be implemented either inside a class or outside calling the full name
 
 struct Point_s {
   double x;
