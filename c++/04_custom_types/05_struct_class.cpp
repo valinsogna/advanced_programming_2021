@@ -21,6 +21,13 @@ struct Point_s {
 void Point_s::print() {
   std::cout << "Structure. x = " << x << "; y = " << y << std::endl;
 }
+//In C++ you can access data by means of a pointer: this
+//This is a pointer that points to the object that invoke the function 
+/*
+void Point_s::print() {
+  std::cout << "Structure. x = " << this->x << "; y = " << this->y << std::endl;
+}
+*/
 
 class Point_c {
   double x;

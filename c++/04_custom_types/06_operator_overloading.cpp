@@ -14,6 +14,7 @@ std::ostream& operator<<(std::ostream& os, const Point_s& p) {
   os << "Struct. x = " << p.x << "; y = " << p.y << std::endl;
   return os;
 }
+//In C++ you can access data by means of a pointer: this
 
 class Point_c {
   double x;
@@ -23,6 +24,11 @@ class Point_c {
     os << "Class. x = " << p.x << "; y = " << p.y << std::endl;
     return os;
   }
+  //without friend, the compiler complains saying that operator has 3 arguments:
+  //it is reffering to the pointer this!
+  //So this is being passed inside the class automatically and there is no need to pass Pointc_& p!
+  //This is way he prefwers to define it outside!
+  //friend makes this function NOT A MEMBER function, and it gives acces to external functions to private data
 
 };  // note ; at the end
 
