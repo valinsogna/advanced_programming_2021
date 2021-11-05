@@ -9,6 +9,9 @@ struct Foo {
 //and their name is the same of the class
 //They can be defined inside/outside the class
 //Inside they must be inlined!
+//Not 'Inlined' means that in executing instructions,
+//the binary code of your functions jumps from 1 point and then returns back.
+//For small functions better inline!
   Foo(const int i, const double d,
       const std::string& s);  // custom constructor
 
