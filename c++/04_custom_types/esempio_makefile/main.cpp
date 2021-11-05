@@ -7,3 +7,10 @@ int main(){
 
     return 0;
 }
+
+/*
+g++ -c main.cpp
+g++ -c my_class.cpp
+g++ main.o my_class.o -o exe.x
+./exe.x
+*/
