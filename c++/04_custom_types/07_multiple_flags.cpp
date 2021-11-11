@@ -1,6 +1,7 @@
 #include <iostream>
-
+//enum by default are int, but you can change the type  
 enum class flags : unsigned int {
+  //two powers since they are defined by a unique bit
   flag1 = 1,
   flag2 = 2,
   flag3 = 4,
