@@ -1,5 +1,5 @@
 #include <iostream>
-
+//X() = default : compilers generates all 6 func
 struct X {
   int a = 5;  // in-class initialization
   double b;
@@ -7,12 +7,24 @@ struct X {
   X() = default;  // in-class initializers are used by the constructors
 };
 
+//Here struct C doesn't have a default constuctor
+struct C {
+  int a = 5;  // in-class initialization
+  double b;
+  char c = 'a';
+  C(int a): a{a} {}
+  //C() = default; 
+};
+//If the user has defined a custom ctor => default ctor is not generated
+//"" cpt ctor =>  default move ctor, move assign, copy assign are not generated
+// "" move ctor => default copy semantic is not generated
+
 struct Y {
   int a = 77;
   double b;
   char c = 'a';
   Y() : a{5} {}  // what it is written here wins the in-class initialization
-  Y(const Y&) = delete;
+  Y(const Y&) = delete;//since C++11 unique pointers
 };
 
 int main() {

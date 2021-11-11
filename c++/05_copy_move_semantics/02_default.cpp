@@ -2,13 +2,13 @@
 #include <string>
 
 struct S {
-  int a;
-  double b;
+  int a; //unititialized
+  double b; //unititialized
   std::string s;  // default ctor of string sets s to empty string
 };
 
 int main() {
-  S s1;  // calls default constructor
+  S s1;  // calls default constructor: a,b random, s empty string
 
   S s2{1, 2.3, "alberto"};  // if there are no custom ctors I can
                             // directly initialize the members. Note
