@@ -6,7 +6,10 @@ class Vector {
   std::size_t _size;
 
  public:
-  explicit Vector(const std::size_t length)
+ //Constructor with 1 arg define an implicit conversion from size_t to Vector
+ //(from the type of thew argument to the type of the class)!
+ //explicit: there is no implicit conversion: it happens only in a ctor!
+  explicit Vector(const std::size_t length) //invoke for ctor with only 1 argument
       : elem{new T[length]{}}, _size{length} {}
 
   ~Vector() { delete[] elem; }
@@ -35,7 +38,7 @@ int main() {
     std::cout << x << " ";
   std::cout << std::endl;
 
-  Vector<int> v2{v1};  // default copy constructor
+  Vector<int> v2{v1};  // synthetized copy constructor
 
   std::cout << "v2 after default copy ctor: ";
   for (const auto x : v2)

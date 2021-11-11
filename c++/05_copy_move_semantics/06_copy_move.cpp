@@ -2,6 +2,8 @@
 #include <iostream>
 #include <memory>
 
+//When you have pointers the copy semantics should be written by myself!
+
 template <typename T>
 class Vector {
   std::size_t _size;

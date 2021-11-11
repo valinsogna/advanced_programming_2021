@@ -1,6 +1,7 @@
 #include <iostream>
-#include <memory>
-
+#include <memory> //-> smart pointers
+//SMART POINTER. unique pointer
+//see q
 template <typename T>
 class Vector {
   std::unique_ptr<T[]> elem;
