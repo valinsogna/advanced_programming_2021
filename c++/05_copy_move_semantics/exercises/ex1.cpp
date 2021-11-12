@@ -46,7 +46,7 @@ class List {
   }
 
   void insert(T&& x, method m){
-      if(!head){
+    if(!head){
       head = std::make_unique<node>(std::move(x),nullptr)
       return;
     }
