@@ -13,7 +13,7 @@ class vector{
 
     template <typename X>
     void _push_back(X&& x, ){
-        if(_size == 0) reserve();
+        //if(_size == 0) reserve();
         check_capacity();
         data[_size] = std::forward<X>(x);
         ++_size;
@@ -22,6 +22,7 @@ class vector{
         if(_size < _capacity) return;
         //_size = _capacity
         //_size != 0
+        if(_size == 0) reserve(8);
         reserve(_size*2); //public function that preallocates your array
     }
 
