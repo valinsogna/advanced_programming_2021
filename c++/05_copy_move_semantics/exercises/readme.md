@@ -13,6 +13,8 @@ class List {
 
   // insert a new node with the value v according to the method m
   // this method is used to fill the list
+  //PASS by REF, R REF, VALUE
+  //With move semantics in C++11 is not a bad idea to pass by REF
   void insert(const value_type& v, const Insertion_method m);
 
   // return the size of the list
@@ -30,8 +32,8 @@ class List {
 
  private:
   // private struct node with the proper value_type
-  // why is a good idea nesting node?
-  struct node {
+  // why is a good idea nesting node? If two classes are templated on all and only the same templates it's good
+  struct node {//it is note templated: it is class list which is templated
     value_type value;
     std::unique_ptr<node> next;
 
