@@ -45,13 +45,38 @@ class List {
     }
   }
 
-  void insert(T&& x, method m){}
+  void insert(T&& x, method m){
+      if(!head){
+      head = std::make_unique<node>(std::move(x),nullptr)
+      return;
+    }
+    switch(m){
+        case method::push_back:
+            push_back(std::move(x));
+            break;
+        case method::push_front:
+            push_front(std::move(x));
+            break;
+        default:
+            std::cerr << "unknown insertion method" <<std:endl;
+            break;
+    }
+  }
 
  private:
-  void push_back(const T& x){
-      
+  T* last_node(){
+    auto tmp = head.get();
+    while(tmp->next) // tmp->next != nullptr
+     tmp = tmp->next.get();
+    return tmp;
   }
-  void push_back(T&& x);
+  void push_back(const T& x){
+    auto tmp = last_node();
+    tmp->next = std::make_unique<node>(x,nullptr);
+  }
+  void push_back(T&& x){
+    last_node()->next = std::make_unique<node>(std::move(x),nullptr);
+  }
   void push_front(const T& x){
     //   auto tmp = new node{x, head.release()};
     //   head.reset(tmp);
