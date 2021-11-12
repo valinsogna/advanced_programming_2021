@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstddef>
 #include <memory>
+#include <utility>
+
 //We are using plain pointer, no smart
 template <typename T, typename Allocator=std::allocator<T> >
 class vector{
@@ -56,7 +58,7 @@ public:
     using traits_alloc = std::allocator_traits<Allocator>; //It's a type that provide unified interface for allocating/constrcting/destroing things
     vector()= default;
     ~vector(){
-        if(data) delete[] data;
+        if(data) delete[] data;//TO BE MODIFIED
     }
 
     vector(Allocator a): allocator{std::move(a)} {};
@@ -75,8 +77,18 @@ public:
     void push_back(T&& x){
         _push_back(std::move(x));
     }
-    auto size() const { return _size;}
-    auto capacity() const { return _capacity;}
+
+    template <typename... Types>
+    void emplace_back(Types&&... args){//args were passed by VALUE, but now forwarding reference
+        check_capacity();
+        traits_alloc::constructor(allocator, data+_size, T{std::forward<Types>(args)}); //
+        ++_size;
+    }
+
+    auto size() const { return _size; }
+    auto capacity() const { return _capacity; }
+
+
 };
 
 int main(){
@@ -85,8 +97,19 @@ int main(){
         v.push_back(i);
         std::cout << v.capacity() << ',' << v.size() << std::endl;
     }
+    std::pair<int, double> p;
+    p.first =7;
+    p.second = 9.9;
+    vector<std::pair<int,int>> vp;
+    vp.push_back(std::make_pair<int,int>(3,4));
+    vp.push_back(std::pair<int,int>(3,4));
+    vp.push_back({3,4});
+
+    vp.emplace_back{3,4};
+
     return 0;
 }
 
 //We are using more synthetize ctor than std::vector!
 //WHY? Because we are using std::move and line 42 (RIASCOLTA)
+
