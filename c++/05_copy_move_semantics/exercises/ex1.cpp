@@ -7,7 +7,14 @@ class List {
     struct node {
         T value;
         std::unique_ptr<node> next;
-        node(const T& x, T*p) : value{x}, next{p} {} //ctor
+        node(const T& x, T*p): //ctor
+        value{x}, // copy ctor invoked
+        next{p} {} 
+
+        //ctor for R value ref:
+        node(T&& x, T*p): //ctor
+        value{std::move(x)},
+        next{p} {} 
     };
     std::unique_ptr<node> head;
 
@@ -41,7 +48,9 @@ class List {
   void insert(T&& x, method m){}
 
  private:
-  void push_back(const T& x);
+  void push_back(const T& x){
+      
+  }
   void push_back(T&& x);
   void push_front(const T& x){
     //   auto tmp = new node{x, head.release()};
@@ -50,6 +59,14 @@ class List {
     //head.reset(new node{x, head.release()});
     //or usign:
     head = std::make_unique<node>(x, head.release())
-  };
-  void push_front(T&& x);
+  }
+  void push_front(T&& x);{ //not copy but a move! -> size_of() < area_of()
+    //if I call:
+    //head = std::make_unique<node>(x, head.release())//l-val or r-val ctor?
+    //Since here I am giving a name 'x' to the obj => l-val
+    //R value are passed to other functions as l-value!
+    //Since there is no need to access x afterwards it's better to use:
+    head = std::make_unique<node>(std::move(x), head.release())
+    //what if you want to use x again??
+  }
 };
