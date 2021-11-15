@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "ap_error.hpp"
-//Severl stack frames: if you have an exception you begin stack winding (coming backwords)
+//Severl stack frames: if you have an exception in 1 of the frame, you begin stack winding (coming backwords dleting the objects)
 class Foo {
  public:
   Foo() { std::cout << "Foo" << std::endl; }
@@ -52,13 +52,16 @@ class ManyResources {
 };
 
 int main() {
-  Foo f;
-  int* raw_ptr = new int[7];  // do not use raw ptr
+  Foo f;//it's construct but not destruct since is not in the try
+  //raw_ptr is outside the try block: why? I would have a memory leak!
+  int* raw_ptr = new int[7];  // do not use raw ptr, 
+  //but use CLASSES THAT IMPLIMENT RAII for each resource one at the time! 
+  //So in this case smart ptr!
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
     // inside the catch-clause
-    ManyResources mr;
-    Bar b;
+    ManyResources mr;//Has an exp: it's construct but not destruct
+    Bar b;//It's not construct
 
   } catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;

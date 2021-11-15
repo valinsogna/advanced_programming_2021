@@ -8,7 +8,8 @@ class Vector {
 
  public:
   Vector(const unsigned int l) : elem{new double[l]} {}
-
+ //noexcept: keyword RIASCOLTA
+ //copy semantics 'noexept' usually
   Vector(Vector&&) noexcept = default;
   Vector& operator=(Vector&&) noexcept = default;
 
@@ -17,12 +18,17 @@ class Vector {
   const double& operator[](const unsigned int i) const noexcept {
     return elem[i];
   }
-
   ~Vector() noexcept { std::cout << "~Vector\n"; }
+
+  //This impl of copy assignement is not exception safe: If new fails the destructor is called 2 times!
+  // Vector& operator (const Vector& x){
+  //   ~Vector();
+  //   new(this) Vector {x};
+  //   return *this;
 };
 
 class ManyResources {
-  std::unique_ptr<double[]> ptr;
+  std::unique_ptr<double[]> ptr; //smart ptr
   Vector v;
 
  public:
