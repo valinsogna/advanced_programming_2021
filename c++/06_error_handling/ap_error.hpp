@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
+//INTERNAL THINGS -> ASSET; EXTERNAL -> EXCEPTIONS!
 /**
  * Validity of pre- and post-conditions and any other requirements
  * must be properly checked. To this aim, in this file a collection of
@@ -13,6 +13,8 @@
  * flag.  Assertions are never enough. Put as many assertions as you
  * can without any worry for loss of performance (in release).
  *
+ * pre- and post-conditions: begin/end of the function
+ * 
  * Example of usage
  *
  * AP_ASSERT(condition);
@@ -161,7 +163,7 @@ namespace internal {
 #define SELECT_MACRO(_1, _2, NAME, ...) NAME
 
 // when the condition is not satisfied, an exception is thrown
-
+//Function overloading: do it with MACROS!
 #define AP_ERROR(...)                                                          \
   SELECT_MACRO(__VA_ARGS__, _AP_ERROR2, _AP_ERROR1, dummy)(__VA_ARGS__)
 

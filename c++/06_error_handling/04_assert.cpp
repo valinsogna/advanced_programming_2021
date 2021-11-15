@@ -31,7 +31,7 @@ int main() {
 
 double square_root(const double d) {
   // test the pre-conditions
-  // assert(d >= 0 && d <= 50);  // provided by C, no execeptions
+  // assert(d >= 0 && d <= 50);  // provided by C in the <cassert>, but in C ther are no execeptions
 
   AP_ASSERT(d >= 0 && d <= 50) << "d should be in the range [0,50]";
 

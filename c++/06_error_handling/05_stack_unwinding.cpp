@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "ap_error.hpp"
-
+//Severl stack frames: if you have an exception you begin stack winding (coming backwords)
 class Foo {
  public:
   Foo() { std::cout << "Foo" << std::endl; }
@@ -33,6 +33,7 @@ class ManyResources {
   Vector v;
 
  public:
+ //What happen if ManyResources ctor fails? The dector is not invoked, so I have to clean it!! line 43
   ManyResources() : ptr{nullptr}, v{3} {
     std::cout << "Manyresources" << std::endl;
     try {
