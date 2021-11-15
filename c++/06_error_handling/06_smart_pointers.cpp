@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "ap_error.hpp"
-
+//If you plan to combine Python with C++ don't use exeptions since Python core is written in C and C dosn't have exceptions!  
 class Vector {
   std::unique_ptr<double[]> elem;
 
@@ -10,7 +10,9 @@ class Vector {
   Vector(const unsigned int l) : elem{new double[l]} {}
  //noexcept: keyword RIASCOLTA
  //copy semantics 'noexept' usually
-  Vector(Vector&&) noexcept = default;
+ //move semantics is always noexecpt
+  Vector(Vector&&) noexcept = default; //I promise it will never throw an exception and also the func invoked internally
+  //If I lied then nthe programnmm crashes: no stack unwinding
   Vector& operator=(Vector&&) noexcept = default;
 
   double& operator[](const unsigned int i) noexcept { return elem[i]; }
