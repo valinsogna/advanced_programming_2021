@@ -25,6 +25,9 @@ int main() {
     return 3;
   }
 }
+//AP_ASSERT are checkpoints in your code.
+//When you develop you keep assert enable.
+//When you release the code, disable.
 
 double square_root(const double d) {
   // test the pre-conditions

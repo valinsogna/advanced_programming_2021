@@ -3,11 +3,12 @@
 #include <string>
 #include <utility>
 
-// implment a square root function that "deals with" negative
+// Implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
-
+//Conventions:
+//All exceptions should have a method const char* what()
 struct Square_root_invalid {
   std::string message;
   Square_root_invalid(std::string s) : message{std::move(s)} {}

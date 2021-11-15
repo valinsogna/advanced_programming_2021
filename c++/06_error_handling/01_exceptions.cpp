@@ -1,7 +1,10 @@
 #include <cmath>
 #include <iostream>
+//Exceptions: exceptional events. Errors are exc events, but not all exp events are errors!
+//Aim: how to signal that an exceptional event occurred
+//Exceptions can be custom types: es. struct
 
-// implment a square root function that "deals with" negative
+// Implement a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
@@ -10,7 +13,15 @@ struct Negative_number {};
 
 struct Bigger_than_expected {};
 
+//How to catch these balls?
+//Should enclose the main body inside a try/catch block!
+
 int main() {
+  //Try is like a switch statements for exception
+  //You have this in java, javascript, etc..
+  //At which level do you want to hadle the exception?
+  //If at main you put it there, otherwise somewhereelse
+  //Try block can be nested
   try {
     std::cout << "please insert a number\n";
     double number;
@@ -34,11 +45,13 @@ int main() {
     return 3;
   }
 }
-
+//throw: keyword to signal smthing
+//You throw a different type of ball (an except event)
+//You throw an object of the type!!
 double square_root(const double d) {
   // test the pre-conditions
   if (d < 0)
-    throw Negative_number{};
+    throw Negative_number{};//named type
   if (d > 50)
     throw Bigger_than_expected{};
   return std::sqrt(d);

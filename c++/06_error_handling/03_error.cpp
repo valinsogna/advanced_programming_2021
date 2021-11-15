@@ -6,6 +6,8 @@
 // implment a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
+//So far we learn static polymorphism (template are const exp: the type must be known at compile time)
+//Dynamic polymorfism: at runn time: we will see!
 double square_root(const double d);
 
 struct Square_root_invalid {
@@ -33,15 +35,35 @@ int main() {
     return 3;
   }
 }
+//EX: 90
+/*
+please insert a number
+90
+
+------------------------------------------------------------------
+A runtime exception has been thrown
+
+       file: 03_error.cpp
+       line: 44                                                        -> WHERE
+   function: double square_root(const double)
+------------------------------------------------------------------
+
+In our library the argument must be positive and less or equal than 50. -> WHY
+
+You passed 90.
+*/
 
 double square_root(const double d) {
-  // test the pre-conditions
-
+// test the pre-conditions
+//Define your own MACRO(handled by preprocessor)
+//If (d >= 0 && d <= 50) = TRUE nothing happens
+//Otherwise I throw a type: Square_root_invalid
   AP_ERROR(d >= 0 && d <= 50, Square_root_invalid)
       << "In our library the argument must be positive and less or equal than "
          "50.\n\nYou passed "
       << d << ".\n";
-
+//Why AP_ERROR is a MACRO and not a func?
+//If it's a function, it will give me info everytime there's an error! (RICHIEDI)
   // AP_ERROR(d >= 0 && d <= 50) << "In our library the argument must be
   // positive "
   //                                "and less or equal than 50.\n";
