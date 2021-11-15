@@ -11,7 +11,8 @@ class Vector {
  //noexcept: keyword RIASCOLTA
  //copy semantics 'noexept' usually
  //move semantics is always noexecpt
-  Vector(Vector&&) noexcept = default; //I promise it will never throw an exception and also the func invoked internally
+  Vector(Vector&&) noexcept = default; //here we are not acquiring any resource so I can use noexcept
+  //noexcept: I promise it will never throw an exception and also the func invoked internally
   //If I lied then nthe programnmm crashes: no stack unwinding
   Vector& operator=(Vector&&) noexcept = default;
 

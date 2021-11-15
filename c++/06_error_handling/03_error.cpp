@@ -12,7 +12,7 @@ double square_root(const double d);
 
 struct Square_root_invalid {
   std::string message;
-  Square_root_invalid(std::string s) : message{std::move(s)} {}
+  Square_root_invalid(std::string s) : message{std::move(s)} {}//s undefined behaviour, puoi liberare risorse
   const char* what() const { return message.c_str(); }
 };
 

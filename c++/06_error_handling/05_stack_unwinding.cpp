@@ -5,7 +5,7 @@
 //Severl stack frames: if you have an exception in 1 of the frame, you begin stack winding (coming backwords dleting the objects)
 class Foo {
  public:
-  Foo() { std::cout << "Foo" << std::endl; }
+  Foo() { std::cout << "Foo" << std::endl; }//do not use noexept because cout uses a buffer!
   ~Foo() { std::cout << "~Foo" << std::endl; }
 };
 
