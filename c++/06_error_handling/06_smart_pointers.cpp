@@ -18,7 +18,7 @@ class Vector {
 
   double& operator[](const unsigned int i) noexcept { return elem[i]; }
 
-  const double& operator[](const unsigned int i) const noexcept {
+  const double& operator[](const unsigned int i) const noexcept {//è una funz const. Quindi è const safe
     return elem[i];
   }
   ~Vector() noexcept { std::cout << "~Vector\n"; }
