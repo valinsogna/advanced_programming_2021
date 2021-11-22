@@ -36,10 +36,11 @@ struct Snake : public Animal {//Children class
 };
 
 // run-time (dynamic) polymorphism: works with reference or pointer (NOT BY VALUE)
+// But at run time, this func doesn't work: I need dynamic binding!
 void print_animal(const Animal& a) noexcept { //accept a parent class and all the children
   std::cout << "through ref\n";
-  a.info();
-  a.speak();
+  a.info();//calls the one of the parent
+  a.speak();//calls the one of the parent
 }
 
 // compile-time (static) polymorphism
