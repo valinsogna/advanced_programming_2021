@@ -22,7 +22,12 @@ struct Animal {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
 
-  virtual ~Animal() {}  // why? see file 03_virtual_destructor.cc
+  virtual ~Animal() {}  // why? see file 03_virtual_destructor.cc: virtual function
+  //A class with at least pure virtual func, is a virtual class!Then:
+  //I can't instanciate an obj Animal
+  //You're forcing children to overwrite func tal dei tali
+  //Why mark a dctor as virtual?
+  //If your func has at least one virtual func, you should mark your dector as virtual
 };
 
 struct Dog : public Animal {
