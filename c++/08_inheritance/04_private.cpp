@@ -53,7 +53,7 @@ class NonDangerousSnake : public Snake {
       : Snake{a, w, false} {}
   NonDangerousSnake() : Snake{false} {}
 };
-
+//DESIGN PATTERNS
 struct Python : public NonDangerousSnake {}; //new type Python
 
 using Anaconda = DangerousSnake;//Anaconda is just an alias

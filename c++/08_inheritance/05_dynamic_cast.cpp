@@ -1,6 +1,8 @@
 #include <ap_error.hpp>
 #include <iostream>
-
+//DYNAMIC_CAST returns T or F
+//used to travel the hierarchy
+//used to understand at run time the type of the child!!!
 class Animal {
   unsigned int age;
   double weight;

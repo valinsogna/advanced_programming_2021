@@ -7,7 +7,8 @@ struct Base {
 
 template <typename T>
 struct Derived : public Base<T> {
-  void bar() const { this->foo(); }
+  void bar() const { this->foo(); }//this is needed when the parent class is templated:
+  // to resolves types correctly, otherwise the compiler won't work
 };
 
 int main() {
