@@ -1,6 +1,10 @@
 #include <ap_error.hpp>
 #include <iostream>
-
+//virtual add 1 or more elements to your class
+//It adds at least a pointer to a virtual function table that scorre sulle right implementations: varie animal::info, snake::info, dog::info,etc..
+//So at least 2 jumps in memory when calling a virtual func, take the prt, go to vft, look which func use (at run time depends on the obj ID),
+//then I jump to the implementation of the func of the right obj
+//Virtual takes long!
 struct Animal {
   unsigned int age;
   double weight;
