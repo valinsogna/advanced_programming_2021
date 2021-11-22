@@ -1,6 +1,6 @@
 #include <ap_error.hpp>
 #include <iostream>
-
+//Dog and Snake do not have access to provate memebrrs of the parent! E.x. age, weight
 class Animal {
   unsigned int age;
   double weight;
@@ -54,9 +54,9 @@ class NonDangerousSnake : public Snake {
   NonDangerousSnake() : Snake{false} {}
 };
 
-struct Python : public NonDangerousSnake {};
+struct Python : public NonDangerousSnake {}; //new type Python
 
-using Anaconda = DangerousSnake;
+using Anaconda = DangerousSnake;//Anaconda is just an alias
 
 void print_animal(const Animal& a) noexcept {
   std::cout << "throught ref\n";
