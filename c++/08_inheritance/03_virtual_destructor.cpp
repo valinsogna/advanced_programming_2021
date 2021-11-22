@@ -2,7 +2,7 @@
 
 struct Base {
   Base() { std::cout << "Base\n"; }
-  /*virtual*/~Base() { std::cout << "~Base\n"; } //now will work
+  /*virtual*/~Base() { std::cout << "~Base\n"; } //now will work -> size 8,8 (ptr to VFT) otherwise 1,1
 };
 
 struct Derived : public Base {
@@ -16,6 +16,8 @@ int main() {
   std::cout << "\n\npointers\n";
   Base* p = new Derived; //dynamic polymorphism
   delete p; //You discover the type at run time then! p is a pointer of Base, so destruct the parent only!
+
+  std::cout << sizeof(Base) << ", " << sizeof(Derived) << std::endl;
 
   return 0;
 }
