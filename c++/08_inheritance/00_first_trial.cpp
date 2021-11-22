@@ -21,7 +21,7 @@ struct Dog {
   Dog(const unsigned int a, const double d) noexcept : _animal{a, d} {}
 };
 
-struct Snake {
+struct Snake {//Snake is an animal
   Animal _animal;
   bool dangerous;
   Snake(const unsigned int a, const double w, const bool b) noexcept

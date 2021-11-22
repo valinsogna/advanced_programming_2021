@@ -1,7 +1,7 @@
 #include "ap_error.hpp"
 #include <iostream>
 
-struct Animal {
+struct Animal {//Parent class
   unsigned int age;
   double weight;
 
@@ -16,14 +16,14 @@ struct Animal {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
 };
-
-struct Dog : public Animal {
+//Dog inherites from Animal: dof IS An animal (IS A != HAS A)
+struct Dog : public Animal {//Children class
   void speak() const noexcept { std::cout << "Bau\n"; }
   Dog() noexcept = default;
   Dog(const unsigned int a, const double d) : Animal{a, d} {}
 };
 
-struct Snake : public Animal {
+struct Snake : public Animal {//Children class
   bool dangerous;
   Snake(const unsigned int a, const double w, const bool b)
       : Animal{a, w}, dangerous{b} {}
@@ -35,8 +35,8 @@ struct Snake : public Animal {
   void speak() const noexcept { std::cout << "ssss\n"; }
 };
 
-// run-time (dynamic) polymorphism
-void print_animal(const Animal& a) noexcept {
+// run-time (dynamic) polymorphism: works with reference or pointer (NOT BY VALUE)
+void print_animal(const Animal& a) noexcept { //accept a parent class and all the children
   std::cout << "through ref\n";
   a.info();
   a.speak();
@@ -44,7 +44,7 @@ void print_animal(const Animal& a) noexcept {
 
 // compile-time (static) polymorphism
 template <class T>
-void print_animal_template(const T& a) noexcept {
+void print_animal_template(const T& a) noexcept { //one function for each animal
   std::cout << "through template\n";
   a.info();
   a.speak();
