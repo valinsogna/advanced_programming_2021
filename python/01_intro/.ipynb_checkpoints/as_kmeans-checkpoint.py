@@ -1,19 +1,25 @@
 # download "s3.txt" from http://cs.uef.fi/sipu/datasets/
 # wget http://cs.uef.fi/sipu/datasets/s3.txt
 
-"""
-given a set of points
-1. select k points (centroids) randomly
+""" 
+Kmin algorithm for cluster searching in a dataset
 
-2. repeat
- - label points
- - update centroids
+Given a set of points
+1. Select k points (centroids) randomly: they are defining the clusters.
+
+2. Repeat
+ - label all points assigning each of them to a cluster
+ - update centroids: take the average of the position of point among each cluster
+ 
+You can fix the amount of iterations, or a threshold as min distortion aka distance between two points
+
+In Kmin++ algorithm, the first centroid is taken randomly then it computes the distance of all points with respect to the centroid and then the second centroid is select by prob that goes to distance^2. So tries to maximaize the distance betwwen centroids.
 """
 from pprint import pprint
-from typing import Tuple, Sequence, Mapping, Callable, Iterable
+from typing import Tuple, Sequence, Mapping, Callable, Iterable #since python 3.3. OSS Map is dict!!!
 import matplotlib.pyplot as plt
 from random import sample
-from collections import defaultdict
+from collections import defaultdict #for dealing with one-to-many mapping
 from functools import partial
 from statistics import mean
 
@@ -36,10 +42,11 @@ def distance(p: Point, q: Point, /) -> float:
 def label(
     dataset: Sequence[Point], centroids: Sequence[Centroid], dist: Dist_func
 ) -> Mapping[Centroid, Cluster]:
-    d = defaultdict(list)
+    d = defaultdict(list)#container with 1 centroid and too many points
     for p in dataset:
         pdist = partial(dist, p)
         centroid = min(centroids, key=pdist)
+        #centroid = min(centroids, key=lambda c: dist(c,pa)) -> lambda can take only 1 input 
         d[centroid].append(p)
     return d
 
@@ -87,8 +94,10 @@ def kmeans(dataset, k, inner, outer, dist):
 if __name__ == "__main__":
 
     points: Sequence[Point]
-
-    with open("s3.txt") as f:
+    #from pprint import pprint
+    with open("s3.txt") as f: #equivalent of RAII of C++: resource acquisition must succeed for initialization to succeed!
+        #here is called a context manager!
+        #Variables DEFINED in a contex manager survive cause it's not a scope!
         points = [tuple(map(float, line.split())) for line in f]
 
     # pprint(points, width=40)
