@@ -16,7 +16,7 @@ You can fix the amount of iterations, or a threshold as min distortion aka dista
 In Kmin++ algorithm, the first centroid is taken randomly then it computes the distance of all points with respect to the centroid and then the second centroid is select by prob that goes to distance^2. So tries to maximaize the distance betwwen centroids.
 """
 from pprint import pprint
-from typing import Tuple, Sequence, Mapping, Callable, Iterable #since python 3.3. OSS Map is dict!!!
+from typing import Tuple, Sequence, Mapping, Callable, Iterable #since python 3.3. OSS Mapping is dict!!!
 import matplotlib.pyplot as plt
 from random import sample
 from collections import defaultdict #for dealing with one-to-many mapping
