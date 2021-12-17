@@ -9,7 +9,7 @@ class Point:  # if python 2 ---> class Point(object):
     def __init__(self, x, y):  # not a real ctor. why?
         self.x = x
         self.y = y
-
+        
     def method_with_no_arg(self):  # if you remove self --> error
         print("no args!")
 
@@ -24,6 +24,31 @@ class Point:  # if python 2 ---> class Point(object):
         return (self.x, self.y) == (other.x, other.y)
 
 
+class Point2D:  # if python 2 ---> class Point(object):
+    def __init__(self, x, y):  # not a real ctor. why?
+        self.x = x
+        self.y = y
+    
+    #def __str__(self):
+    #    print('str')
+    #    return f"{self.__class__.__name__}({self.x!r}{self.y!r})"
+
+    def __repr__(self):
+        print('repr')
+        return f"{self.__class__.__name__}({self.x!r}{self.y!r})"
+
+    def __eq__(self, other):
+        print("no args!")
+
+    def update(self, x, y):  # do I really need this?
+        self.x = x
+        self.y = y
+
+    def print(self):  # is this pythonic?
+        print("Point", self.x, self.y)
+
+    def equal(self, other):  # is this pythonic?
+        return (self.x, self.y) == (other.x, other.y)
 
 
 
