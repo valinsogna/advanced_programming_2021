@@ -1,7 +1,8 @@
 #include <iostream>
 
+// Can't split declaration from definition when using auto (since C++ statically typed lang)
 auto factorial(unsigned int n) {
-  unsigned int ret{1};
+  unsigned int ret{1}; // later I may decide to use std::size_t instead of unsigned int
   while (n > 1) {
     ret *= n;
     --n;

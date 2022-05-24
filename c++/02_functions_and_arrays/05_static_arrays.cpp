@@ -28,6 +28,9 @@ int main() {
 
   std::cout << "\n-------------------------------\n\n";
 
+  // double ad[7]; // uninitialized
+  // double ad[]{3.2,3.1}; // length understand by compiler
+  // double ad[7]{}; // all elements are 0
   double ad[7]{1.1, 2.2, 3.3};  // the rest is set to 0
 
   *ad = 9.9;  // an array is implicitly converted to
