@@ -26,7 +26,7 @@ int main() {
 
   for (i = 0; i < 5; ++i) {
     if (i == 2)
-      break;
+      break; // break out of the loop
     std::cout << i << std::endl;
   }
 
@@ -34,7 +34,7 @@ int main() {
 
   for (i = 0; i < 5; ++i) {
     if (i == 2)
-      continue;
+      continue; // continue with the next iteration
     std::cout << i << std::endl;
   }
 

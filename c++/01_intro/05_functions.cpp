@@ -1,6 +1,6 @@
 #include <iostream>
 
-//declaration: name of variable not important (signature)
+//declaration: name of variable not important (signature) (first time you introduce a symbol)
 void buggy_swap(int , int );
 void swap_c(int* a, int* b);
 void swap_cxx(int& a, int& b);
