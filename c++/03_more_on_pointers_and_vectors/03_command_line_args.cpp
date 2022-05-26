@@ -12,11 +12,13 @@ int main(int argc, char* argv[]) {
     std::cout << "argv[" << i << "] = " << argv[i] << std::endl;
 
   unsigned int a;
+  //before C++11: char '3' is converted to un unsigned int 3
   {
-    std::istringstream s{argv[1]};  //before C++11: char '3' is converted to un unsigned int
-    s >> a;
+    std::istringstream s{argv[1]};  // istringstream: stream of strings
+    s >> a; // Get-from operator >>
   }
   std::cout << "a is " << a << std::endl;
+
 //Since C++11:
   // std::stoi int
   // std::stol long int

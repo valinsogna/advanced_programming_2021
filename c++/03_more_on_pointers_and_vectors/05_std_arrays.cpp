@@ -4,7 +4,7 @@
 // template <class T, std::size_t N> size must be know at compile time like static array (and must be const)
 // struct array;
 
-//They live in stack and do not return the addressto the first element!
+//They live in stack and do not return the address to the first element!
 //You can pass them by reference
 template <typename T, std::size_t N>
 void print_array_two(const std::array<T, N>& a);
@@ -62,10 +62,11 @@ void print_array_one(const T& a) {
 }
 
 /*
-Which one is better? From developing types the second is better,
-but if you want to express the idea that this functionshould accept only an std::array the frist is useful
+Which one is better? From developing side the second is better,
+but if you want to express the idea that this function should accept only an std::array the frist is useful
 
 Since C++20 there are concepts wich are constexpr func that returns a boolean and is able to do a check on type of var
+in order to make constrains on the second func.
 */
 
 //What if the size it is not unkown at compile time or the size is too big: I cannot use std::array! I use std:vector!

@@ -7,6 +7,7 @@ void print_ma(int m[][5], int dim1);  // ugly and not flexible
 //     int m[][],
 //     int dim1,
 //     int dim2);  // error: second dimension must be knwon at compile time
+// Why? Since when accesing it: p[i * col + j] col size must be known!
 
 void print_ma(int* p, int row, int col);  // the "best" solution
 
@@ -27,7 +28,8 @@ int main() {
     std::cout << std::endl;
   }
 
-  //Transpose: 2 inner for better to read in which sense and write in what?
+  // Transpose: 2 inner for better to read in which sense and write in what? 
+  // Write miss are more expensive than read miss!
 
   for (int i = 0; i < 6; ++i) {
     for (int j = 0; j < 5; ++j)

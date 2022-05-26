@@ -2,7 +2,7 @@
 #include <iostream>
 //If your code inside your function it is not known at compile time,
 constexpr std::size_t fib(const unsigned int x) {
-  return (x < 2) ? x : fib(x - 1) + fib(x - 2); //recursion + C++14 syntax
+  return (x < 2) ? x : fib(x - 1) + fib(x - 2); //recursion + C++14 syntax for ternary operator
   // if (x < 2) return x;
   // else {
   //   return fib(x-1) + fib(x-2);
@@ -31,8 +31,8 @@ constexpr std::size_t fib_t<1>() {
   return 1;
 }
 
-//MACRO: preprocessor instr
-//Long int
+//MACRO: preprocessor instr (-std=c++17)
+//__cplusplus is a long int
 #if __cplusplus > 201700L 
 
 template <unsigned i>
@@ -51,7 +51,7 @@ constexpr unsigned int num{24};
 int main() {
   {//scope: so t0,t1,elapsed are confined in the scope
     auto t0 = std::chrono::high_resolution_clock::now();
-    constexpr auto x = fib(num);
+    constexpr auto x = fib(num); //put constexpr here otherwise it might evaluated things at run time
     auto t1 = std::chrono::high_resolution_clock::now();
     auto elapsed =
         std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0);

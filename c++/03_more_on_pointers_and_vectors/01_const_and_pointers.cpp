@@ -33,9 +33,16 @@ int main() {
 }
 //Pointer arithmetics: ptr + 2 make to jumps to the size of ptr type
 template <typename T>
-void print_sentinel(const T* a, const std::size_t l) {
-  //a it's a pointer to a constant
+void print_sentinel(const T* a, const std::size_t l) { // a is the ptr to the first elem
+  //a it's a pointer to a constant: one past the last element!
   const T* const end{a + l};
   for (; a != end; ++a)//I increment of 1 jump the value of pointer a
     std::cout << *a << std::endl;
 }
+
+/*
+0    1     2     3     4      
+a   a+1   a+2   a+3   a+4
+                last  past to last
+                elem  elem
+*/

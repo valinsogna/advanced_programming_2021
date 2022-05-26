@@ -11,7 +11,7 @@ int main() {
 
   char** ppc; //pointer to a pointer to char: I might have an array of pointers which points int
 
-  int* ap[7];
+  int* ap[7]; //int* can point only to int!
 
   void* pv{pi}; //void* can point to whatever!
   // *pv; // we cannot dereference void*
@@ -29,26 +29,29 @@ int main() {
   pi = nullptr;
   ppc = nullptr;
   // ap = nullptr;  // error, why? 
-  //ap is name of a static array: so it's ike a const pointer, and I cannot chnage the address or the value
+  // ap is name of a static array: so it's like a const pointer,
+  // and I cannot change the address or the value
   ap[0] = nullptr;
   int** bbb;
-  bbb = ap;
+  bbb = ap; // to first elem of ap
   pv = nullptr;
-  pi2 = 0;  // older codes. gets the nullptr. please don't do it
+  pi2 = 0;  // older codes. gets the nullptr. please don't do it!
 
   // pi = NULL; // please don't do it
   //NULL and nullptr are of different types: in some compiler NULL might not work.
-  //In C NULL = 0 but in C++ nullptr it's a pointer of NULL elem which is !== 0(?)
+  //In C NULL = 0 but in C++ nullptr is an obj of type nullptr!
 
   double* da{new double[5]{}};
-  delete[] da;  // dangling pointer: points to an address location, but it's emptied
-  da = nullptr; //This must be done
+  delete[] da;  // dangling pointer: points to a valid address, that has been deleted
+  // infact later in the code I can use da again, but it's dangling pointer!
+  da = nullptr; // So this must be done
   //You can't dereference a nullptr!
+
   if (pi != nullptr)
     std::cout << "pi is not nullptr and I can dereference it " << *pi
               << std::endl;
 
-  if (pi) //same as: pi != nullptr because each number different from 0 are implicetly converted to true
+  if (pi) //same as: pi != nullptr, because each address different from 0 are implicetly converted to true
     std::cout << "pi is not nullptr and I can dereference it " << *pi
               << std::endl;
 
@@ -70,8 +73,9 @@ int main() {
     std::cout << "same\n";
   else
     std::cout << "different\n";
+    
 //POINTER TO FUNCTION
-  int (*fp)(const char*); //int (*fp) parentesi are mandatory!Otherwise it's a 
+  int (*fp)(const char*); //int (*fp) parentesi are mandatory! Otherwise it's a ptr to int
   fp = func1; //You can omit & for functions!
 
   fp("hello");
