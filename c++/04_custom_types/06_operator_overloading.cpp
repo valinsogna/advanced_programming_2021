@@ -10,6 +10,7 @@ struct Point_s {
   double y;
 };  // note ; at the end
 
+// std::cout is of type ostream!
 std::ostream& operator<<(std::ostream& os, const Point_s& p) {
   os << "Struct. x = " << p.x << "; y = " << p.y << std::endl;
   return os;
@@ -25,12 +26,28 @@ class Point_c {
     return os;
   }
   //without friend, the compiler complains saying that operator has 3 arguments:
-  //it is reffering to the pointer this!
+  //it is refering to the pointer this!
   //So this is being passed inside the class automatically and there is no need to pass Pointc_& p!
-  //This is way he prefwers to define it outside!
+  //This is way he prefers to define it outside!
   //friend makes this function NOT A MEMBER function, and it gives acces to external functions to private data
 
 };  // note ; at the end
+
+/*
+I can defined it outside the class, but it is not a good practice
+
+class Point_c {
+  double x;
+  double y;
+
+  friend std::ostream& operator<<(std::ostream&, const Point_c& )
+}; 
+
+std::ostream& operator<<(std::ostream& os, const Point_c& p) {
+  os << "Class. x = " << p.x << "; y = " << p.y << std::endl;
+  return os;
+}
+*/
 
 int main() {
   Point_s ps;

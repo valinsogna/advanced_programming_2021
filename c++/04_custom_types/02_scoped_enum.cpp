@@ -26,7 +26,7 @@ int main() {
   // int a = opt; // and they don't implicitly convert to integers
   // but we can force it with a static cast (at compile time):
   int a{static_cast<int>(opt)};  // cast
-  // int a {int(opt)}; //
+  // int a {int(opt)}; // calls the constructor of int
   // int a {(int)opt}; // C-style cast
 
   dwim(opt);

@@ -1,15 +1,18 @@
 #include <iostream>
 //Enum defines const expressions with different values compolsury
 enum color { red, yellow, green };
-// enum color{red=0, yellow=1, green=2}; // equivalent
+// enum color{red=0, yellow=1, green=2}; // equivalent: compiler set values by default
+// red is 4 B since it's an int 
+
 //But what if I define:
 //enum t {blue, red, green} -> This name clashing has been resolved with scope enum in C++11
+
 void dwim(const color c) {
   //SWITCH works only with enum, char, (unsigned/short)int. Not with strings or double!
   switch (c) {
     case red:
       std::cout << "option 1: red\n";
-      break;//exit from the inner scope/loop
+      break;//exit from the inner loop
     case yellow:
       std::cout << "option 2: yellow\n";
       break;
@@ -23,7 +26,7 @@ void dwim(const color c) {
 }
 
 int main() {
-  color opt{red};//named color variable of typew color
+  color opt{red};//named color variable of type color
   // opt = 3; // cannot assign int to enum
   int a{opt};  // but they implicitly convert to integers
 
@@ -32,7 +35,7 @@ int main() {
   dwim(yellow);
 
   // dwim(2); // error
-  dwim(color(2));  // works but why you may want to write this?
+  dwim(color(2));  // on the fly: works but why you may want to write this?
 
   dwim(color(6));  // ???
 

@@ -8,8 +8,8 @@
 //It is in the default visibility of the symbols!
 //Struct make them all public, instead class private!
 //There are 3 level of visibility: public, private, protected
-//Private visbility is for let the onject remain in a valid state
-//Interface of a class: set of public symbols, varibales, functions
+//Private visibility is for let the object remain in a valid state
+//Interface of a class: set of public symbols, variables, functions (all public memebers)
 //Functions can be implemented either inside a class or outside calling the full name
 
 struct Point_s {
@@ -30,14 +30,25 @@ void Point_s::print() {
 */
 
 class Point_c {
-  double x;
+  double x; 
   double y;
 
  public:
-  void print() {
+  void print() { // method can be defined INSIDE or OUTSIDE the class with fully qualified name (and just the declaration inside)
     std::cout << "Class. x = " << x << "; y = " << y << std::endl;
   }  // note no ; at the end
 };   // note ; at the end
+
+// The order in which you define members is not important!
+// class Point_c {
+//  public:
+//   void print() {
+//     std::cout << "Class. x = " << x << "; y = " << y << std::endl;
+//   } 
+//  private:
+//   double x;
+//   double y;
+// };
 
 int main() {
   Point_s ps;
@@ -51,7 +62,7 @@ int main() {
   pc.print();  // I can access private data through public functions
 
   Point_s* p = &ps;
-  p->x = 0.0;
+  p->x = 0.0; // use arrow (no point) to access members
   p->print();
 
   auto& pr = ps;

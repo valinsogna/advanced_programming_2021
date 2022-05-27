@@ -18,11 +18,11 @@ struct Foo {
   Foo();  // default constructor
 
   ~Foo();  // destructor: function invoked when your object is out of scope
-  //+ copy constructor and ?
+  //+ copy constructor and move constructor (since c++11)
 };
 //Outside fully qualified name without return type:
 Foo::Foo(const int i, const double d, const std::string& s)
-    : _i{i},//initilization space: we are calling the constractur of each elem
+    : _i{i},//initilization space: we are calling the constructor of each elem
       _d{d},//faster to initialize members here then in the body!
       _s{s}
 // _i, _d, _s must be initialized in the same order they have been declared
@@ -54,7 +54,7 @@ int main() {
   Foo f1{};  // call default ctor
   // Foo f2(); // compiler error
 
-  Foo f2{8, 2.2, "hello"};
+  Foo f2{8, 2.2, "hello"}; // can have round parenthesis as well but older codes
   std::cout << "f0: " << f0 << "f1: " << f1 << "f2: " << f2 << std::endl;
 
   // the destructor is called when the variable goes out of scope

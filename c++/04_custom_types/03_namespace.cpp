@@ -31,7 +31,7 @@ void choose_a_name::nested::hello1() {
 //I reopen the namespace choose_a_name
 //I can incrementaly add symbols to a namespace 
 namespace choose_a_name {
-  namespace nested {
+  namespace nested { //THE SAME nested namespace!!!!
     void hello2() {
       std::cout << "hello2 from nested\n"
                 << "variable is " << variable << std::endl;
@@ -39,7 +39,7 @@ namespace choose_a_name {
   }  // namespace nested
 }  // namespace choose_a_name
 
-using namespace choose_a_name;
+using namespace choose_a_name; // not raccomanded
 
 void nested::hello3() {
   std::cout << "hello3 from nested\n"
