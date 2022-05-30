@@ -5,6 +5,7 @@ struct X {
   double b;
   char c = 'a';
   X() = default;  // in-class initializers are used by the constructors
+  //compilers generates all constructors + destructor
 };
 
 //Here struct C doesn't have a default constuctor

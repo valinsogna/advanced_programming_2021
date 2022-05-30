@@ -50,7 +50,7 @@ class Vector {
     std::cout << "move ctor\n";
   }
 
-  // Vector(Vector&& v) = default; // ok
+  // Vector(Vector&& v) = default; // ok since usage of unique ptr 
 
   // move assignment
   Vector& operator=(Vector&& v) {
@@ -60,7 +60,7 @@ class Vector {
     return *this;
   }
 
-  // Vector& operator=(Vector&& v) = default; // ok
+  // Vector& operator=(Vector&& v) = default; // ok since usage of unique ptr
 
   // end move semantics
   /////////////////////////
