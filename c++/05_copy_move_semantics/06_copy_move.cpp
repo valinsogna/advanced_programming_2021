@@ -90,7 +90,7 @@ Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} {
 template <typename T>
 Vector<T>& Vector<T>::operator=(const Vector& v) {
   std::cout << "copy assignment (\n";
-  elem.reset();              // clear memory
+  elem.reset();              // clear memory (smart ptr interface)
   auto tmp = v;              // then use copy ctor
   (*this) = std::move(tmp);  // finally move assignment
 
@@ -106,15 +106,24 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   // ~Vector();             // clear memory
   // new (this) Vector{v};  // placement-new on my self using copy ctor
   // return *this;
-  // can you imagine why it has been changed?
+  // Can you imagine why it has been changed? Anserw in next lesson
+  // You want to protect yourself from self-assignement!
+  // if (&v == this) return *this;
 }
 
 template <typename T>
 // why we return by value?
+// I can't return by reference: it is a ptr.
+// Vector res lives in the stack frame of this func, as soon as this func is returned, 
+// res memory is gone even if it is a ptr/ref!
+// By value is the only way.
+// After c++11 and the move semantics things are faster and can be returned by value!
+// Vector<int> a = b + c;
+
 Vector<T> operator+(const Vector<T>& lhs, const Vector<T>& rhs) {
   const auto size = lhs.size();
 
-  // what should we do if vectors have differnt sizes?
+  // what should we do if vectors have different sizes?
 
   Vector<T> res(size);
   for (std::size_t i = 0; i < size; ++i)
@@ -144,16 +153,16 @@ int main() {
 
   std::cout << "\nVector<double> v2 = v1; calls\n";
   Vector<double> v2 = v1;
-  std::cout << "\nv2 = Vector<double>{7}; calls\n";
+  std::cout << "\nv2 = Vector<double>{7}; calls\n"; // move assign -> Vector<double>{7} dies immediately
   v2 = Vector<double>{7};
-  std::cout << "\nVector<double> v3{std::move(v1)}; calls\n";
+  std::cout << "\nVector<double> v3{std::move(v1)}; calls\n"; //move ctor (v1 already constructed)
   Vector<double> v3{std::move(v1)};  // now v1 should not be used
-  std::cout << "\nv3 = v2; calls\n";
+  std::cout << "\nv3 = v2; calls\n"; //copy assign
   v3 = v2;
   std::cout << "\nv2 = " << v2;
   std::cout << "v3 = " << v3;
 
-  std::cout << "\nassign some values to v3\n";
+  std::cout << "\nassign some values to v3\n"; //deep copy!
   {
     // auto i = v3.size();
     // while (i--)
@@ -167,6 +176,9 @@ int main() {
   std::cout << "\nv2 = " << v2;
   std::cout << "v3 = " << v3;
 
+ // Calls only custom ctor and no move assign after operator+
+ // Why?
+ // NRVO
   std::cout << "\nVector<double> v4{v3 + v3}; calls\n";
   Vector<double> v4{v3 + v3};
 
@@ -176,7 +188,7 @@ int main() {
 
   std::cout << "\nv4 = v3 + v3 + v2 + v3; calls\n";
   v4 = v3 + v3 + v2 + v3;
-  std::cout << "v4 = " << v4;
+  std::cout << "v4 = " << v4; // calls custom ctor 3 times and then a move assign (compiler can't do NRVO)
 
   return 0;
 }
