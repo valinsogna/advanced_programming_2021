@@ -6,10 +6,10 @@
 #include <vector>
 
 /*
-NEW: is a combination of RAW memory alllocation (like malloc) + ctor 
+NEW: is a combination of RAW memory allocation (like malloc) + ctor 
 DELETE: ""  destruct each elem of the obj + free the mmeory
 
-With allocators we can skip the ctor pahse of NEW and just allocate RAW memeory
+With allocators we can skip the ctor phase of NEW and just allocate RAW memory
 */
 
 // Second template has a default value, so we can later specify only one template
@@ -111,13 +111,14 @@ int main() {
 
   value_type::print_summary();
 
+  // Containers for pair of values: (2 templates)
   // std::pair<int, double> p;
   // p.first = 7;
   // p.second = 9.9;
   // vector<std::pair<int,int>> vp;
-  // vp.push_back(std::make_pair<int,int>(3,4));
+  // vp.push_back(std::make_pair<int,int>(3,4)); // only 1 arg (+ this )
   // vp.push_back(std::pair<int,int>(3,4));
   // vp.push_back({3,4});
 
-  // vp.emplace_back(3,4);
+  // vp.emplace_back(3,4); // many args
 }
