@@ -1,23 +1,32 @@
-#include <algorithm>
+#include <algorithm> //std::find
 #include <iostream>
 #include <iterator>
 #include <memory> //unique_ptr
 
 enum class method { push_back, push_front };
 
+// Implement to types for const and non iterators with one class!!!!
 template <typename node, typename T>
-class _iterator {
+class _iterator { // node is private and defined inside class List => template it!
   node* current;
 
  public:
-  using value_type = T;
+ // From <iterator> we must specify:
+  using value_type = T; 
   using reference = value_type&;
   using pointer = value_type*;
-  using difference_type = std::ptrdiff_t;
-  using iterator_category = std::forward_iterator_tag;
+  using difference_type = std::ptrdiff_t; //#include <iterator>
+  // There are several types of iterators:
+  // - ones that go only forwards
+  // - bidirectional iterators
+  // - random access iterators
+
+  // #include <iterator>:
+  using iterator_category = std::forward_iterator_tag; // we didn't implement operator--, only ++
 
   explicit _iterator(node* x) : current{x} {} //ctor
-  reference operator*() const { return current->value; }
+  //const on right for status not changing assurance:
+  reference operator*() const { return current->value; } //old: T&
   _iterator& operator++() {  // pre-increment ++i
     current = current->next.get();
     return *this;
@@ -58,8 +67,8 @@ class List {
   std::unique_ptr<node> head; // at the begin of the list
 
  public:
-  using iterator = _iterator<node, T>;
-  using const_iterator = _iterator<node, const T>;
+  using iterator = _iterator<node, T>; // ref returned
+  using const_iterator = _iterator<node, const T>; //const ref returned
 
   //With move semantics in C++11 is not a bad idea to pass by REF
   // Avoid code duplication:
@@ -91,17 +100,26 @@ class List {
   auto begin() { return iterator{head.get()}; }
   auto end() { return iterator{nullptr}; }
 
-  auto begin() const { return const_iterator{head.get()}; }
+  // We need a const operator (another type), but why?
+  // We use const on the right for assuring compiler that
+  // the memeber will not chnage the state of the obj List!
+  // But in this case we are not trying to change the state:
+  // we are defining a new type: a const iterator.
+  auto begin() const { return const_iterator{head.get()}; } // But without const_iterator (just iterator) the bug *it = 77 is not spotted!
   auto end() const { return const_iterator{nullptr}; }
 
+  // They return a const iterator too, but they are useful when calling
+  // a ram iterator (that has right-access to my data) is better!
   auto cbegin() const { return const_iterator{head.get()}; }
   auto cend() const { return const_iterator{nullptr}; }
 
+  // Since C++11 we can initialize our containers with a set of values immediatly:
   explicit List(std::initializer_list<T> l) {
     for (auto&& x : l)
       insert(std::move(x), method::push_back);
   }
-
+  //OSS. std::initializer_list has HIGHER PRIORITY than any custom ctor that take same num of args
+  //ex. List<int> l{4} -> calls 117 ctor 
  private:
   // X is != T
   // When X is deduced and when T?
@@ -197,26 +215,56 @@ class List {
 template <typename T>
 void foo(const List<T>& x) {
   auto it = x.begin();
-  // *it = 77;
+  // *it = 77; is it a bug if we are without begin() const implementation? 
+  // No, cause even though the dereference operator of iterator class is const,
+  // the compiler isn't smart enough to do a check on the iterator!
+  // So we must implement a class for const iterators that (only difference)
+  // when it is dereferenced returns a const reference (not a reference).
+  
+  // How to build this other class?
+  // We could template the existing class on the returned value.
+
+  // Now "*it = 77;" is illegal,
+  // since we are passing a const List that has infact a const iterator that
+  // when dereferenced, returns a const iterator.
 }
 
 int main() {
-  List<int> l{4, 5, 6, 7, 7};
+  List<int> l{4, 5, 6, 7, 7}; //thanks to ctor line 117
 
-  std::vector<double> v{5, 0.0};
+  // Vector has a couple of ctors:
+  // - std::vector<double> v{5, 0.0}  ->  {number of elem, default value for each elemx}
+  // - std::vector<int> v{5,0} -> Conflict: is it calling ther same or plain vector with 2 elem?
+  // It's a vector with 2 elem, but if I want to choose the other I must use ():
+  // std::vector<int> v(5,0);
+  std::vector<double> v{5, 0.0}; // No conflict: 
+  // std::initializer_list<T> wants tinghs of the same type!
 
   // l.insert(3,method::push_front);
   // l.insert(4,method::push_front);
   // l.insert(5,method::push_back);
 
   // foo(l);
+  
+  // Let's use an algorithm:
   auto it = std::find(l.cbegin(), l.cend(), 43);
+  // OSS. Must specify the type of iterator used for range based loop:
+  // iterator_category = std::forward_iterator_tag; and those 4 lines.
+  // If we comment it than find() won't work! Why?
+  // Since algorithm funcs have been specalized on thew type of iterators we have!
+
+  //How to check is it found smthing:
   if (it != l.cend()) {
     // found!!
   }
+
   for (auto x : l)
     std::cout << x << std::endl;
 }
+
+// Type-dispatch mechanism:
+// We write a func with the categories of the opertor 
+// that we have got
 
 template <typename I>
 void foo(I first, I last, std::forward_iterator_tag) {}
@@ -226,5 +274,6 @@ void foo(I first, I last, std::random_access_iterator_tag) {}
 
 template <typename I>
 void foo(I first, I last) {
+  // when you have a scoped type and templates u must prepend it!
   foo(first, last, typename I::iterator_category{});
 }
