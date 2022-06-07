@@ -41,8 +41,9 @@ class Vector {
   // Therefore:
   // Vector& operator=(const Vector& x){
   //   //clean resources:
-  //   auto tmp = x; //copy ctor
-  //   (*this) = std:move(x);
+  //   elem.reste(); // release memory
+  //   auto tmp = x; //copy ctor: tmp has to be construct!
+  //   (*this) = std:move(tmp); //move assign
   //   return *this;
   // }
 };

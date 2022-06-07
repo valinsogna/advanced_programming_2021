@@ -56,17 +56,21 @@ class Matrix {
       : _rows{x._rows}, _cols{x._cols}, elem{std::move(x.elem)} {
     std::cout << "move ctor" << std::endl;
   }
-
+  // move assign:
   Matrix& operator=(Matrix&&) noexcept = default;
-
+  //OR:
   // Matrix& operator=(Matrix&& x) noexcept{
   //   _rows = x._rows;
   //   _cols = y._cols;
   //   elem = std::move(x.elem);
   // }
+
+  // Subscripting [] operator: ex. m[6]= 9; ALWAYS 1 ARGS! m[2,3] won't work!
+  // Suggestion: [] no bound checking but do with compilation -DNDEBUG
   T& operator[](const std::size_t i) noexcept { return elem[i]; }
   const T& operator[](const std::size_t i) const noexcept { return elem[i]; }
 
+  // Subscripting [] operator: ex. m(2,3) = 9;
   T& operator()(const std::size_t i, const std::size_t j) AP_NOEXCEPT {
     AP_ASSERT_LT(i, _rows);
     AP_ASSERT_LT(j, _cols);
@@ -87,6 +91,7 @@ class Matrix {
     return os;
   }
 
+  //Can use one obj as accumulator
   Matrix& operator+=(const Matrix& b) {
     for (std::size_t i = 0; i < _rows * _cols; ++i)
       (*this)[i] += b[i];
@@ -94,10 +99,14 @@ class Matrix {
     return *this;
   }
 
-  friend Matrix operator+(Matrix&& a, const Matrix& b) {
-    return std::forward<Matrix>(a += b);
+  //We must return a new Matrix object by value because we construct an
+  //object inside the function so it lives in the stack and can't be returned by ref.
+  //In order to avoid excessive calls to ctor, we can pass the first matrix by R-ref 
+  friend Matrix operator+(Matrix&& a, const Matrix& b) { // faster
+    // a is a R-value ref but is passed to the func += as L-value ref
+    return std::forward<Matrix>(a += b); //using the += operator above defined
   }
-
+  //OR use this but then with multiple sums many ctor are invoked for each time we sum!
   //   friend Matrix operator+(const Matrix& a, const Matrix& b) {
   //     AP_ASSERT_EQ(a._rows, b._rows);
   //     AP_ASSERT_EQ(a._cols, b._cols);
@@ -157,7 +166,7 @@ Matrix<T> sum_10(const Matrix<T>& m0,
 }
 
 int main() {
-  constexpr std::size_t N{20'000};
+  constexpr std::size_t N{10}; //or since C++11: N{10'000} for 10 thousands
   Matrix<int> m1{N};
   for (std::size_t i = 0; i < N * N; ++i) {
     m1[i] = 1;

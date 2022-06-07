@@ -81,7 +81,8 @@ class Vector {
 
 // copy ctor
 template <typename T>
-Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} {
+Vector<T>::Vector(const Vector& v) : _size{v._size}, elem{new T[_size]} { // or directly 
+// : Vector<T>::Vector(v._size) {
   std::cout << "copy ctor\n";
   std::copy(v.begin(), v.end(), begin());
 }

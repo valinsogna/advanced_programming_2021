@@ -17,14 +17,20 @@ class Matrix {
 
  public:
   Matrix(const std::size_t r, const std::size_t c)
-      : _rows{r}, _cols{c}, elem{new T[_rows * _cols]} {
+  // Compiler follows the order of initialization!!
+      : _rows{r}, _cols{c}, elem{new T[_rows * _cols]} { // can't put noexcept for new
+    // OR:
+    //: elem{new T[r * c]}, _rows{r}, _cols{c} {
     std::cout << "custom ctor" << std::endl;
   }
 
+  // Square matrix: to avoid duplication of code use the ctor above
   explicit Matrix(const std::size_t n) : Matrix{n, n} {}  // delegating ctor
 
+  // Recall: I can access the private members of the class since they are of same type!
   Matrix(const Matrix& x) : Matrix{x._rows, x._cols} {
     std::cout << "copy ctor" << std::endl;
+    //We are not usign allocators
     std::copy(x.elem.get(), x.elem.get() + _rows * _cols, elem.get());
   }
 
