@@ -160,10 +160,19 @@ namespace internal {
 
 // trick to simulate the overloading of macro AP_ASSERT depending on the number
 // of arguments
+// SELECT_MACRO returns the name of the right marco according to the number of args
 #define SELECT_MACRO(_1, _2, NAME, ...) NAME
 
 // when the condition is not satisfied, an exception is thrown
-//Function overloading: do it with MACROS!
+//Function overloading can be done with MACROS using a trick!
+// 1- A marco that takes a variety of number of args:
+// #define AP_ERROR(...)  
+// OSS: __VA_ARGS__ are all the args that you are passing to the marco
+// 2- A marco that takes 1 arg
+// #define AP_ERROR(condition)
+// 3- A marco that takes 2 args
+// #define AP_ERROR(condition, exception_type)
+
 #define AP_ERROR(...)                                                          \
   SELECT_MACRO(__VA_ARGS__, _AP_ERROR2, _AP_ERROR1, dummy)(__VA_ARGS__)
 

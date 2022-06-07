@@ -2,7 +2,9 @@
 #include <vector>
 
 #include "ap_error.hpp"
-//Severl stack frames: if you have an exception in 1 of the frame, you begin stack winding (coming backwords dleting the objects)
+// Stack unwinding:
+// Severl stack frames: if you have an exception in 1 of the frame,
+// you begin stack winding (coming backwords deleting the objects)
 class Foo {
  public:
   Foo() { std::cout << "Foo" << std::endl; }//do not use noexept because cout uses a buffer!
@@ -33,7 +35,9 @@ class ManyResources {
   Vector v;
 
  public:
- //What happen if ManyResources ctor fails? The dector is not invoked, so I have to clean it!! line 43
+ //What happen if ManyResources ctor fails? 
+ //At line 43 the ctor is called but the destructor is not invoked, 
+ // so I have to clean it (delete[] ptr)!! 
   ManyResources() : ptr{nullptr}, v{3} {
     std::cout << "Manyresources" << std::endl;
     try {
@@ -59,7 +63,7 @@ int main() {
   //So in this case smart ptr!
   try {
     // int * raw_ptr=new int[7]; // wrong because raw_ptr would not be visible
-    // inside the catch-clause
+    // inside the catch-clause but only in the try scope!
     ManyResources mr;//Has an exp: it's construct but not destruct
     Bar b;//It's not construct
 

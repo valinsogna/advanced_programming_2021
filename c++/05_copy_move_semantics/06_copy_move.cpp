@@ -106,7 +106,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v) {
   // ~Vector();             // clear memory
   // new (this) Vector{v};  // placement-new on my self using copy ctor
   // return *this;
-  // Can you imagine why it has been changed? Anserw in next lesson
+  // Can you imagine why it has been changed? Answer in next lesson (less 10)
   // You want to protect yourself from self-assignement!
   // if (&v == this) return *this;
 }

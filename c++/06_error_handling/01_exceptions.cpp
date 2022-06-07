@@ -15,6 +15,7 @@ struct Bigger_than_expected {};
 
 //How to catch these balls?
 //Should enclose the main body inside a try/catch block!
+//If an except raised inside a try block, it's value is compared in the catch blcok
 
 int main() {
   //Try is like a switch statements for exception
@@ -40,14 +41,14 @@ int main() {
               << "This means there is a bug in the algorithm that generated "
                  "this number.\n";
     return 2;
-  } catch (...) {
+  } catch (...) { // can catch whatever type of exception
     std::cerr << "Unknown exception. Aborting.\n";
     return 3;
   }
 }
 //throw: keyword to signal smthing
 //You throw a different type of ball (an except event)
-//You throw an object of the type!!
+//You throw an object of a type!!
 double square_root(const double d) {
   // test the pre-conditions
   if (d < 0)

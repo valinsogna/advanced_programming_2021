@@ -6,13 +6,16 @@
 // implment a square root function that "deals with" negative
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
-//So far we learn static polymorphism (template are const exp: the type must be known at compile time)
-//Dynamic polymorfism: at runn time: we will see!
+
+//So far we learn Static Polymorphism like templates 
+// (templates are const exp: the type must be known at compile time)
+//Dynamic Polymorfism: at runn time (we will see it)!
 double square_root(const double d);
 
 struct Square_root_invalid {
   std::string message;
   Square_root_invalid(std::string s) : message{std::move(s)} {}//s undefined behaviour, puoi liberare risorse
+  // C++ convention:
   const char* what() const { return message.c_str(); }
 };
 
@@ -63,7 +66,9 @@ double square_root(const double d) {
          "50.\n\nYou passed "
       << d << ".\n";
 //Why AP_ERROR is a MACRO and not a func?
-//If it's a function, it will give me info everytime there's an error! (RICHIEDI)
+//If it's a function, it will give me info of where the error took place 
+//everytime there's that error, so we need a MACRO!
+
   // AP_ERROR(d >= 0 && d <= 50) << "In our library the argument must be
   // positive "
   //                                "and less or equal than 50.\n";

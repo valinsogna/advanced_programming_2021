@@ -7,7 +7,7 @@
 // numbers. Moreover according to the logic of the program, d should
 // never be greater than 50
 double square_root(const double d);
-//Conventions:
+//Convention in C++:
 //All exceptions should have a method const char* what()
 struct Square_root_invalid {
   std::string message;
@@ -23,7 +23,7 @@ int main() {
     std::cout << "square root of " << number << " is " << d << '\n';
     return 0;
   } catch (const Square_root_invalid& s) {
-    std::cerr << s.message << std::endl;
+    std::cerr << s.message << std::endl; // not optimal since user should know the design .message
     return 1;
   } catch (...) {
     std::cerr << "Unknown exception. Aborting.\n";
