@@ -120,6 +120,7 @@ class Matrix {
   //   }
 };
 
+//Expression templates
 template <typename L, typename R>
 class MatrixSum :public MatrixExpression<MatrixSum<L,R>>{ //curiously recurring template pattern
   const L& l;
