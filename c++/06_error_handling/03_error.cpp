@@ -30,7 +30,7 @@ int main() {
   } catch (const Square_root_invalid& e) {
     std::cerr << e.what() << std::endl;
     return 2;
-  } catch (const std::exception& e) {
+  } catch (const std::exception& e) {// to catch all std exceptions since exception is a parent class and must catch it by REF (for DYNAMIC POLYmorphism)
     std::cerr << e.what() << std::endl;
     return 1;
   } catch (...) {

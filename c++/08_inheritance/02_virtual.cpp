@@ -17,6 +17,7 @@ struct Animal {
   //DINAMIC BINDING: virtual on the function that can be overwritten
   //It is different than function overloading!
   //It is function overwriting: same func, same arg, different classes!
+  //With Overwrite you van only change the return type!
   virtual void speak() const = 0;  // pure virtual function ==> abstract class
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';

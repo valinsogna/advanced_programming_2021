@@ -1,6 +1,6 @@
 #include <ap_error.hpp>
 #include <iostream>
-//Dog and Snake do not have access to provate memebrrs of the parent! E.x. age, weight
+//Dog and Snake do not have access to private memebers of the parent! E.x. age, weight
 class Animal {
   unsigned int age;
   double weight;

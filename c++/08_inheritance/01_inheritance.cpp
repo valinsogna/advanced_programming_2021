@@ -39,16 +39,16 @@ struct Snake : public Animal {//Children class
 // But at run time, this func doesn't work: I need dynamic binding!
 void print_animal(const Animal& a) noexcept { //accept a parent class and all the children
   std::cout << "through ref\n";
-  a.info();//calls the one of the parent
-  a.speak();//calls the one of the parent
+  a.info();//calls the one of the parent, not the child!
+  a.speak();//calls the one of the parent, not the child!
 }
 
 // compile-time (static) polymorphism
 template <class T>
 void print_animal_template(const T& a) noexcept { //one function for each animal
   std::cout << "through template\n";
-  a.info();
-  a.speak();
+  a.info(); //calls the one of the child
+  a.speak();//calls the one of the child
 }
 
 int main() {
