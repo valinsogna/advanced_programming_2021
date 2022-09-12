@@ -1,7 +1,12 @@
 #include <iostream>
 #include <memory> //-> smart pointers
-//SMART POINTER. unique pointer
-//see q
+//SMART POINTER: unique_ptr
+//See Q
+// Interaface:
+// - T* get()
+// - void reset(T* p)
+// - T* release()  => copy semantics must be defined by the user (also with raw ptr)
+// Why? Since default copy ctor calls for release() which is a deleted function -> error
 template <typename T>
 class Vector {
   std::unique_ptr<T[]> elem;

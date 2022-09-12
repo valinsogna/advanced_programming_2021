@@ -29,7 +29,7 @@ int main() {
   pi = nullptr;
   ppc = nullptr;
   // ap = nullptr;  // error, why? 
-  // ap is name of a static array: so it's like a const pointer,
+  // ap is name of a static array: so it's like a const pointer, <-ATTENTION!
   // and I cannot change the address or the value
   ap[0] = nullptr;
   int** bbb;

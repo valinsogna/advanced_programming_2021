@@ -34,7 +34,7 @@ class Point_c {
 };  // note ; at the end
 
 /*
-I can defined it outside the class, but it is not a good practice
+I can defined it outside the class, but it is not a good practice cause there might be several functions with the same name
 
 class Point_c {
   double x;

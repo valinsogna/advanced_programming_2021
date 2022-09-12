@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+// constexpr declares that it is possible to evaluate the value of the function or variable at compile time
 //If your code inside your function it is not known at compile time,
 constexpr std::size_t fib(const unsigned int x) {
   return (x < 2) ? x : fib(x - 1) + fib(x - 2); //recursion + C++14 syntax for ternary operator
@@ -37,9 +38,9 @@ constexpr std::size_t fib_t<1>() {
 
 template <unsigned i>
 constexpr std::size_t fib_t17() {
-  if constexpr (i < 2) //C++17 syntax + if statement is evaluated at run time
+  if constexpr (i < 2) //C++17 syntax + if statement is evaluated at run time, if constexpr is evaluated at compile time
     return i;
-  else {  //<- very important, otherwise and infinite recursion 
+  else {  //<- very important, otherwise and infinite recursion  (USE else with if constexpr)
   //(instead for normal if condition you don't need to specify else if you are exiting the function)
     return fib_t17<i - 1>() + fib_t17<i - 2>();
   }

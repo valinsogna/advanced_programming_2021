@@ -21,7 +21,7 @@ int main() {
   print_vector(v1, "v1 after copy");
 
   for (auto x : {7, 8, 9})
-    v1.push_back(x);  // or since C++11: v1.emplace_back(x); 
+    v1.push_back(x);  // or since C++11: v1.emplace_back(x) (<- can have many number of args); 
     // for increase at runtime the size of the array
 
   print_vector(v1, "v1 after push_back");

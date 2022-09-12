@@ -18,7 +18,7 @@ class Vector {
   // Try to remove the const and recompile:
   // if you call v.size() you will get an error since the compiler 
   // don't not know if the func is modifying the state of Vector v e.x. _size or not.
-  // This const ON THE RIGHT is just for member funcs! (inside a class)
+  // This const ON THE RIGHT is just for member funcs! (inside a class) <- IMPORTANT
   // It guarantees that the func won't change the member: e.x. return ++_size;
   std::size_t size() const { return _size; }
 
